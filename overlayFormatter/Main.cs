@@ -23,7 +23,8 @@ namespace overlayFormatter
             Title = "Select folder with overlays",
         };
 
-        List<string> selectedFiles = new List<string>();
+        List<string> overlayFiles = new List<string>();
+        List<string> shopFiles = new List<string>();
         List<Overlay> overlays = new List<Overlay>();
 
         public Main()
@@ -47,7 +48,7 @@ namespace overlayFormatter
             actionsLog.AppendText(msg);
         }
 
-        private void GetOverlayItems(XDocument document, string fileName)
+        private void GetOverlayItems(XDocument document, string fileName, ref int count)
         {
             if (!document.Root.IsEmpty && document.Root.HasElements)
             {
@@ -68,10 +69,13 @@ namespace overlayFormatter
                             )));
 
                             LogAction(">> " + fileName + " formatted successfully");
+
+                            count++;
                         }
-                        catch
+                        catch (Exception e)
                         {
                             LogAction(">> " + fileName + " an error occured, skipping...");
+                            MessageBox.Show(e.Message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
@@ -90,9 +94,58 @@ namespace overlayFormatter
             }
         }
 
-        private void GetShopItems(XDocument document, string fileName)
+        private void GetShopItems(XDocument document, string fileName, ref int count)
         {
+            if (!document.Root.IsEmpty && document.Root.HasElements)
+            {
+                if (document.Root.Name.LocalName == "TattooShopItemArray")
+                {
+                    XElement items = document.Root.Element("TattooShopItems");
 
+                    if (!items.IsEmpty && items.HasElements)
+                    {
+                        try
+                        {
+                            List<Shop> shopItems = items.Elements("Item").Select(x => new Shop(
+                                x.Element("textLabel").Value,
+                                x.Element("collection").Value,
+                                x.Element("preset").Value
+                            )).ToList();
+
+                            shopItems.ForEach(x =>
+                            {
+                                int idx = overlays.FindIndex(y => y.name == x.name);
+
+                                if (idx > -1) {
+                                    overlays[(int)idx].label = x.label;
+                                    overlays[(int)idx].collection = x.collection;
+                                }
+                            });
+
+                            LogAction(">> " + fileName + " formatted successfully");
+
+                            count++;
+                        }
+                        catch (Exception e)
+                        {
+                            LogAction(">> " + fileName + " an error occured, skipping...");
+                            MessageBox.Show(e.Message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        LogAction(">> " + fileName + " has no items, skipping...");
+                    }
+                }
+                else
+                {
+                    LogAction(">> " + fileName + " is not a TattooShopItemArray, skipping...");
+                }
+            }
+            else
+            {
+                LogAction(">> " + fileName + " is empty, skipping...");
+            }
         }
 
         private void selectFileBtn_Click(object sender, EventArgs e)
@@ -104,32 +157,44 @@ namespace overlayFormatter
                 string directory = folderPicker.FileName;
                 string[] files = Directory.GetFiles(directory);
 
-                selectedFiles.Clear();
+                overlayFiles.Clear();
                 formatBtn.Enabled = false;
 
                 foreach (string fileName in files)
                 {
                     if (fileName.Contains(".xml") && fileName.Contains("_overlays"))
-                        selectedFiles.Add(fileName);
+                        overlayFiles.Add(fileName);
+                    if (fileName.Contains(".meta") && fileName.Contains("shop_tattoo"))
+                        shopFiles.Add(fileName);
                 }
 
-                LogAction("Looking for .xml files");
+                LogAction("Looking for overlay files");
 
-                if (selectedFiles.Count > 0)
+                if (overlayFiles.Count > 0)
                 {
                     selectedPathTxt.Text = directory;
-                    formatBtn.Enabled = true;
 
-                    for (int i = 0; i < selectedFiles.Count; i++)
+                    for (int i = 0; i < overlayFiles.Count; i++)
                     {
-                        LogAction("> " + Path.GetFileName(selectedFiles[i]));
+                        LogAction("> " + Path.GetFileName(overlayFiles[i]));
                     }
 
-                    LogAction("Found " + selectedFiles.Count + " files");
+                    LogAction("Found " + overlayFiles.Count + " overlay files");
+
+                    LogAction("Looking for shop files");
+
+                    for (int i = 0; i < shopFiles.Count; i++)
+                    {
+                        LogAction("> " + Path.GetFileName(shopFiles[i]));
+                    }
+
+                    LogAction("Found " + shopFiles.Count + " shop files");
+
+                    formatBtn.Enabled = true;
                 } else
                 {
-                    MessageBox.Show("No .xml files were found in the directory!", "overlayFormatter", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    LogAction("Unable to find any .meta files");
+                    MessageBox.Show("No overlay files were found in the directory!", "overlayFormatter", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    LogAction("Unable to find any overlay files");
                 }
             }
         }
@@ -138,20 +203,44 @@ namespace overlayFormatter
         {
             overlays.Clear();
 
-            LogAction("Formatting..");
+            LogAction("Formatting overlay files...");
 
-            for (int i = 0; i < selectedFiles.Count; i++)
+            int overlayCount = 0;
+            int shopCount = 0;
+
+            for (int i = 0; i < overlayFiles.Count; i++)
             {
-                string fileName = Path.GetFileName(selectedFiles[i]);
+                string fileName = Path.GetFileName(overlayFiles[i]);
 
                 LogAction("> " + fileName);
 
-                XDocument document = XDocument.Load(selectedFiles[i]);
+                XDocument document = XDocument.Load(overlayFiles[i]);
 
-                GetOverlayItems(document, fileName);
+                GetOverlayItems(document, fileName, ref overlayCount);
             }
 
-            LogAction("Formatted " + selectedFiles.Count + " files");
+            LogAction("Formatted " + overlayCount + " overlay files");
+
+            if (shopFiles.Count > 0)
+            {
+                LogAction("Formating shop files..");
+
+                for (int i = 0; i < shopFiles.Count; i++)
+                {
+                    string fileName = Path.GetFileName(shopFiles[i]);
+
+                    LogAction("> " + fileName);
+
+                    XDocument document = XDocument.Load(shopFiles[i]);
+
+                    GetShopItems(document, fileName, ref shopCount);
+                }
+
+                LogAction("Formatted " + shopCount + " overlay files");
+            } else
+            {
+                LogAction("If you want labels and collection add shop_tattoo.meta files");
+            }
         }
     }
 }
