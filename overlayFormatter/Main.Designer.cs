@@ -71,6 +71,7 @@
             this.formatBtn.TabIndex = 3;
             this.formatBtn.Text = "Format";
             this.formatBtn.UseVisualStyleBackColor = true;
+            this.formatBtn.Click += new System.EventHandler(this.formatBtn_Click);
             // 
             // actionsLog
             // 
