@@ -41,10 +41,10 @@ namespace overlayFormatter
             if (newLine)
             {
                 if (actionsLog.Text != "")
-                    actionsLog.Text += "\r\n";
+                    actionsLog.AppendText("\r\n");
             }
 
-            actionsLog.Text += msg;
+            actionsLog.AppendText(msg);
         }
 
         private void GetOverlayItems(XDocument document, string fileName)
