@@ -59,7 +59,7 @@ namespace overlayFormatter
                     {
                         try
                         {
-                            overlays.AddRange(items.Elements("Items").Select(x => new Overlay(
+                            overlays.AddRange(items.Elements("Item").Select(x => new Overlay(
                                 x.Element("nameHash").Value,
                                 (Zone)Enum.Parse(typeof(Zone), x.Element("zone").Value),
                                 (Type)Enum.Parse(typeof(Type), x.Element("type").Value),
