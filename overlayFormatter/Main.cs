@@ -59,11 +59,11 @@ namespace overlayFormatter
 
                 foreach (string fileName in files)
                 {
-                    if (fileName.Contains(".meta"))
+                    if (fileName.Contains(".xml") && fileName.Contains("_overlays"))
                         selectedFiles.Add(fileName);
                 }
 
-                LogAction("Looking for .meta files");
+                LogAction("Looking for .xml files");
 
                 if (selectedFiles.Count > 0)
                 {
@@ -72,13 +72,13 @@ namespace overlayFormatter
 
                     for (int i = 0; i < selectedFiles.Count; i++)
                     {
-                        LogAction(">" + Path.GetFileName(selectedFiles[i]));
+                        LogAction("> " + Path.GetFileName(selectedFiles[i]));
                     }
 
                     LogAction("Found " + selectedFiles.Count + " files");
                 } else
                 {
-                    MessageBox.Show("No .meta files were found in the directory!", "overlayFormatter", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("No .xml files were found in the directory!", "overlayFormatter", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     LogAction("Unable to find any .meta files");
                 }
             }
