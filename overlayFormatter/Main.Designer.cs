@@ -135,6 +135,7 @@
             this.Controls.Add(this.selectedPathTxt);
             this.Controls.Add(this.selectedPathLbl);
             this.Controls.Add(this.selectFileBtn);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Main";
             this.Text = "overlayFormatter";
             this.Load += new System.EventHandler(this.Main_Load);
