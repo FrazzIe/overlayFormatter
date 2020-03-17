@@ -9,7 +9,7 @@
  3. Select folder
  4. Format
  5. Export
- 
+
  ## Example output
  ```json
  [
@@ -33,3 +33,6 @@
   }
  ]
  ```
+
+ ## Screenshot
+ ![Image of Program](https://i.imgur.com/I2vyQAm.png)
