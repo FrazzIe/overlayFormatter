@@ -188,7 +188,7 @@ namespace overlayFormatter
                         LogAction("> " + Path.GetFileName(overlayFiles[i]));
                     } //Show the user all found (x)_overlays.xml files
 
-                    LogAction("Found " + overlayFiles.Count + " overlay files");
+                    LogAction("Found " + overlayFiles.Count + " overlay file(s)");
 
                     LogAction("Looking for shop files");
 
@@ -197,7 +197,7 @@ namespace overlayFormatter
                         LogAction("> " + Path.GetFileName(shopFiles[i]));
                     } //Show the user all found shop_tattoo.meta files
 
-                    LogAction("Found " + shopFiles.Count + " shop files");
+                    LogAction("Found " + shopFiles.Count + " shop file(s)");
 
                     formatBtn.Enabled = true;
                     hairCheckBox.Enabled = true; //Enable buttons now that files were found
@@ -230,7 +230,7 @@ namespace overlayFormatter
                 GetOverlayItems(document, fileName, ref overlayCount);
             }
 
-            LogAction("Formatted " + overlayCount + " overlay files");
+            LogAction("Formatted " + overlayCount + " overlay file(s)");
 
             if (shopFiles.Count > 0) //Check if any shop files were found
             {
@@ -247,7 +247,7 @@ namespace overlayFormatter
                     GetShopItems(document, fileName, ref shopCount);
                 }
 
-                LogAction("Formatted " + shopCount + " overlay files");
+                LogAction("Formatted " + shopCount + " overlay file(s)");
             } else
             {
                 LogAction("If you want labels and collection add shop_tattoo.meta files");
