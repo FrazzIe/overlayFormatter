@@ -33,11 +33,12 @@
             this.selectedPathTxt = new System.Windows.Forms.TextBox();
             this.formatBtn = new System.Windows.Forms.Button();
             this.actionsLog = new System.Windows.Forms.TextBox();
+            this.exportBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // selectFileBtn
             // 
-            this.selectFileBtn.Location = new System.Drawing.Point(233, 23);
+            this.selectFileBtn.Location = new System.Drawing.Point(238, 23);
             this.selectFileBtn.Name = "selectFileBtn";
             this.selectFileBtn.Size = new System.Drawing.Size(75, 23);
             this.selectFileBtn.TabIndex = 0;
@@ -59,7 +60,7 @@
             this.selectedPathTxt.Location = new System.Drawing.Point(15, 25);
             this.selectedPathTxt.Name = "selectedPathTxt";
             this.selectedPathTxt.ReadOnly = true;
-            this.selectedPathTxt.Size = new System.Drawing.Size(212, 20);
+            this.selectedPathTxt.Size = new System.Drawing.Size(217, 20);
             this.selectedPathTxt.TabIndex = 2;
             // 
             // formatBtn
@@ -84,11 +85,22 @@
             this.actionsLog.Size = new System.Drawing.Size(298, 145);
             this.actionsLog.TabIndex = 4;
             // 
+            // exportBtn
+            // 
+            this.exportBtn.Enabled = false;
+            this.exportBtn.Location = new System.Drawing.Point(96, 203);
+            this.exportBtn.Name = "exportBtn";
+            this.exportBtn.Size = new System.Drawing.Size(75, 23);
+            this.exportBtn.TabIndex = 5;
+            this.exportBtn.Text = "Export";
+            this.exportBtn.UseVisualStyleBackColor = true;
+            this.exportBtn.Click += new System.EventHandler(this.exportBtn_Click);
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(322, 241);
+            this.Controls.Add(this.exportBtn);
             this.Controls.Add(this.actionsLog);
             this.Controls.Add(this.formatBtn);
             this.Controls.Add(this.selectedPathTxt);
@@ -108,6 +120,7 @@
         private System.Windows.Forms.TextBox selectedPathTxt;
         private System.Windows.Forms.Button formatBtn;
         private System.Windows.Forms.TextBox actionsLog;
+        private System.Windows.Forms.Button exportBtn;
     }
 }
 

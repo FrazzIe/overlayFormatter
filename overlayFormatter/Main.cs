@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 
 namespace overlayFormatter
 {
@@ -158,6 +159,7 @@ namespace overlayFormatter
                 string[] files = Directory.GetFiles(directory);
 
                 overlayFiles.Clear();
+                exportBtn.Enabled = false;
                 formatBtn.Enabled = false;
 
                 foreach (string fileName in files)
@@ -201,6 +203,7 @@ namespace overlayFormatter
 
         private void formatBtn_Click(object sender, EventArgs e)
         {
+            exportBtn.Enabled = false;
             overlays.Clear();
 
             LogAction("Formatting overlay files...");
@@ -241,6 +244,41 @@ namespace overlayFormatter
             {
                 LogAction("If you want labels and collection add shop_tattoo.meta files");
             }
+
+            exportBtn.Enabled = true;
+        }
+
+        private void exportBtn_Click(object sender, EventArgs e)
+        {
+            string fileName = "overlays";
+            int count = 1;
+            string currentDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string filePath = "";
+
+            LogAction("Exporting...");
+
+            if (File.Exists(currentDir + "\\" + fileName + ".json")) {
+                LogAction("Getting suitable filename...");
+
+                while (File.Exists(currentDir + "\\" + fileName + "_" + count + ".json"))
+                {
+                    count++;
+                }
+
+                filePath = currentDir + "\\" + fileName + "_" + count + ".json";
+            } else
+            {
+                filePath = currentDir + "\\" + fileName + ".json";
+            }
+
+            using (StreamWriter outputFile = File.CreateText(filePath))
+            {
+                outputFile.WriteLine(JsonConvert.SerializeObject(overlays, Formatting.Indented));
+            }
+
+            LogAction("Successfully exported to: " + Path.GetFileName(filePath));
+
+            System.Diagnostics.Process.Start(currentDir);
         }
     }
 }
