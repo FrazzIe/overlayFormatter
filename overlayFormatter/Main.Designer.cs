@@ -35,6 +35,7 @@
             this.actionsLog = new System.Windows.Forms.TextBox();
             this.exportBtn = new System.Windows.Forms.Button();
             this.hairCheckBox = new System.Windows.Forms.CheckBox();
+            this.creditLabel = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // selectFileBtn
@@ -103,18 +104,30 @@
             this.hairCheckBox.Checked = true;
             this.hairCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hairCheckBox.Enabled = false;
-            this.hairCheckBox.Location = new System.Drawing.Point(188, 207);
+            this.hairCheckBox.Location = new System.Drawing.Point(15, 232);
             this.hairCheckBox.Name = "hairCheckBox";
             this.hairCheckBox.Size = new System.Drawing.Size(122, 17);
             this.hairCheckBox.TabIndex = 6;
             this.hairCheckBox.Text = "include hair overlays";
             this.hairCheckBox.UseVisualStyleBackColor = true;
             // 
+            // creditLabel
+            // 
+            this.creditLabel.AutoSize = true;
+            this.creditLabel.Location = new System.Drawing.Point(216, 233);
+            this.creditLabel.Name = "creditLabel";
+            this.creditLabel.Size = new System.Drawing.Size(97, 13);
+            this.creditLabel.TabIndex = 7;
+            this.creditLabel.TabStop = true;
+            this.creditLabel.Text = "Created by Frazzle.";
+            this.creditLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.creditLabel_LinkClicked);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 241);
+            this.ClientSize = new System.Drawing.Size(322, 251);
+            this.Controls.Add(this.creditLabel);
             this.Controls.Add(this.hairCheckBox);
             this.Controls.Add(this.exportBtn);
             this.Controls.Add(this.actionsLog);
@@ -138,6 +151,7 @@
         private System.Windows.Forms.TextBox actionsLog;
         private System.Windows.Forms.Button exportBtn;
         private System.Windows.Forms.CheckBox hairCheckBox;
+        private System.Windows.Forms.LinkLabel creditLabel;
     }
 }
 

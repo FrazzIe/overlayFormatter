@@ -16,6 +16,7 @@ namespace overlayFormatter
 {
     public partial class Main : Form
     {
+        string github = "https://github.com/FrazzIe";
         CommonOpenFileDialog folderPicker = new CommonOpenFileDialog
         {
             EnsurePathExists = true,
@@ -286,6 +287,11 @@ namespace overlayFormatter
             LogAction("Successfully exported to: " + Path.GetFileName(filePath));
 
             System.Diagnostics.Process.Start(currentDir); //Open exported file location in explorer
+        }
+
+        private void creditLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(github);
         }
     }
 }
