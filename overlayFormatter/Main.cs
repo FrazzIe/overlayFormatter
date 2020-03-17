@@ -69,6 +69,11 @@ namespace overlayFormatter
                                 (Gender)Enum.Parse(typeof(Gender), x.Element("gender").Value)
                             )));
 
+                            if (!hairCheckBox.Checked)
+                            {
+                                overlays.RemoveAll(x => x.name.ToLower().Contains("hair"));
+                            }
+
                             LogAction(">> " + fileName + " formatted successfully");
 
                             count++;
@@ -161,6 +166,7 @@ namespace overlayFormatter
                 overlayFiles.Clear();
                 exportBtn.Enabled = false;
                 formatBtn.Enabled = false;
+                hairCheckBox.Enabled = false;
 
                 foreach (string fileName in files)
                 {
@@ -193,6 +199,7 @@ namespace overlayFormatter
                     LogAction("Found " + shopFiles.Count + " shop files");
 
                     formatBtn.Enabled = true;
+                    hairCheckBox.Enabled = true;
                 } else
                 {
                     MessageBox.Show("No overlay files were found in the directory!", "overlayFormatter", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

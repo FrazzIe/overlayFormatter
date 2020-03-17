@@ -34,6 +34,7 @@
             this.formatBtn = new System.Windows.Forms.Button();
             this.actionsLog = new System.Windows.Forms.TextBox();
             this.exportBtn = new System.Windows.Forms.Button();
+            this.hairCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // selectFileBtn
@@ -95,11 +96,26 @@
             this.exportBtn.Text = "Export";
             this.exportBtn.UseVisualStyleBackColor = true;
             this.exportBtn.Click += new System.EventHandler(this.exportBtn_Click);
+            // 
+            // hairCheckBox
+            // 
+            this.hairCheckBox.AutoSize = true;
+            this.hairCheckBox.Checked = true;
+            this.hairCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.hairCheckBox.Enabled = false;
+            this.hairCheckBox.Location = new System.Drawing.Point(188, 207);
+            this.hairCheckBox.Name = "hairCheckBox";
+            this.hairCheckBox.Size = new System.Drawing.Size(122, 17);
+            this.hairCheckBox.TabIndex = 6;
+            this.hairCheckBox.Text = "include hair overlays";
+            this.hairCheckBox.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(322, 241);
+            this.Controls.Add(this.hairCheckBox);
             this.Controls.Add(this.exportBtn);
             this.Controls.Add(this.actionsLog);
             this.Controls.Add(this.formatBtn);
@@ -121,6 +137,7 @@
         private System.Windows.Forms.Button formatBtn;
         private System.Windows.Forms.TextBox actionsLog;
         private System.Windows.Forms.Button exportBtn;
+        private System.Windows.Forms.CheckBox hairCheckBox;
     }
 }
 
