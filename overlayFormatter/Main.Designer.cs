@@ -38,9 +38,9 @@
             this.tattooRadioButton = new System.Windows.Forms.RadioButton();
             this.hairRadioButton = new System.Windows.Forms.RadioButton();
             this.overlayRadioButton = new System.Windows.Forms.RadioButton();
-            this.formatGroupBox = new System.Windows.Forms.GroupBox();
+            this.exportGroupBox = new System.Windows.Forms.GroupBox();
             this.decalRadioButton = new System.Windows.Forms.RadioButton();
-            this.formatGroupBox.SuspendLayout();
+            this.exportGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // selectFileBtn
@@ -73,7 +73,7 @@
             // formatBtn
             // 
             this.formatBtn.Enabled = false;
-            this.formatBtn.Location = new System.Drawing.Point(217, 35);
+            this.formatBtn.Location = new System.Drawing.Point(232, 203);
             this.formatBtn.Name = "formatBtn";
             this.formatBtn.Size = new System.Drawing.Size(75, 23);
             this.formatBtn.TabIndex = 3;
@@ -95,7 +95,7 @@
             // exportBtn
             // 
             this.exportBtn.Enabled = false;
-            this.exportBtn.Location = new System.Drawing.Point(232, 276);
+            this.exportBtn.Location = new System.Drawing.Point(217, 35);
             this.exportBtn.Name = "exportBtn";
             this.exportBtn.Size = new System.Drawing.Size(75, 23);
             this.exportBtn.TabIndex = 5;
@@ -106,7 +106,7 @@
             // creditLabel
             // 
             this.creditLabel.AutoSize = true;
-            this.creditLabel.Location = new System.Drawing.Point(18, 286);
+            this.creditLabel.Location = new System.Drawing.Point(15, 208);
             this.creditLabel.Name = "creditLabel";
             this.creditLabel.Size = new System.Drawing.Size(97, 13);
             this.creditLabel.TabIndex = 7;
@@ -149,19 +149,19 @@
             this.overlayRadioButton.Text = "All overlays";
             this.overlayRadioButton.UseVisualStyleBackColor = true;
             // 
-            // formatGroupBox
+            // exportGroupBox
             // 
-            this.formatGroupBox.Controls.Add(this.decalRadioButton);
-            this.formatGroupBox.Controls.Add(this.overlayRadioButton);
-            this.formatGroupBox.Controls.Add(this.hairRadioButton);
-            this.formatGroupBox.Controls.Add(this.tattooRadioButton);
-            this.formatGroupBox.Controls.Add(this.formatBtn);
-            this.formatGroupBox.Location = new System.Drawing.Point(15, 203);
-            this.formatGroupBox.Name = "formatGroupBox";
-            this.formatGroupBox.Size = new System.Drawing.Size(298, 67);
-            this.formatGroupBox.TabIndex = 11;
-            this.formatGroupBox.TabStop = false;
-            this.formatGroupBox.Text = "Format options";
+            this.exportGroupBox.Controls.Add(this.decalRadioButton);
+            this.exportGroupBox.Controls.Add(this.overlayRadioButton);
+            this.exportGroupBox.Controls.Add(this.exportBtn);
+            this.exportGroupBox.Controls.Add(this.hairRadioButton);
+            this.exportGroupBox.Controls.Add(this.tattooRadioButton);
+            this.exportGroupBox.Location = new System.Drawing.Point(15, 232);
+            this.exportGroupBox.Name = "exportGroupBox";
+            this.exportGroupBox.Size = new System.Drawing.Size(298, 67);
+            this.exportGroupBox.TabIndex = 11;
+            this.exportGroupBox.TabStop = false;
+            this.exportGroupBox.Text = "Export options";
             // 
             // decalRadioButton
             // 
@@ -178,11 +178,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 307);
-            this.Controls.Add(this.formatGroupBox);
+            this.ClientSize = new System.Drawing.Size(322, 310);
+            this.Controls.Add(this.exportGroupBox);
             this.Controls.Add(this.creditLabel);
-            this.Controls.Add(this.exportBtn);
             this.Controls.Add(this.actionsLog);
+            this.Controls.Add(this.formatBtn);
             this.Controls.Add(this.selectedPathTxt);
             this.Controls.Add(this.selectedPathLbl);
             this.Controls.Add(this.selectFileBtn);
@@ -190,8 +190,8 @@
             this.Name = "Main";
             this.Text = "overlayFormatter";
             this.Load += new System.EventHandler(this.Main_Load);
-            this.formatGroupBox.ResumeLayout(false);
-            this.formatGroupBox.PerformLayout();
+            this.exportGroupBox.ResumeLayout(false);
+            this.exportGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,7 +208,7 @@
         private System.Windows.Forms.RadioButton tattooRadioButton;
         private System.Windows.Forms.RadioButton hairRadioButton;
         private System.Windows.Forms.RadioButton overlayRadioButton;
-        private System.Windows.Forms.GroupBox formatGroupBox;
+        private System.Windows.Forms.GroupBox exportGroupBox;
         private System.Windows.Forms.RadioButton decalRadioButton;
     }
 }

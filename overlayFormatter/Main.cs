@@ -88,18 +88,6 @@ namespace overlayFormatter
                                 }
                             }
 
-
-                            if (tattooRadioButton.Checked) //Checks if only tattoo overlays are being kept
-                            {
-                                overlays.RemoveAll(x => !x.name.ToLower().Contains("tat")); //Removes all non-tattoo overlays
-                            } else if (hairRadioButton.Checked) //Checks if only hair overlays are being kept
-                            {
-                                overlays.RemoveAll(x => !x.name.ToLower().Contains("hair")); //Removes all non-hair overlays
-                            } else if (decalRadioButton.Checked) //Checks if only decal overlays are being kept
-                            {
-                                overlays.RemoveAll(x => (x.name.ToLower().Contains("hair") || x.name.ToLower().Contains("tat"))); //Removes all non-decal overlays
-                            }
-
                             LogAction(">> " + fileName + " formatted successfully");
 
                             count++; //updates the number of successfully formatted files
@@ -240,12 +228,7 @@ namespace overlayFormatter
 
                     LogAction("Found " + shopFiles.Count + " shop file(s)");
 
-                    formatBtn.Enabled = true;
-                    formatGroupBox.Enabled = true;
-                    overlayRadioButton.Enabled = true;
-                    tattooRadioButton.Enabled = true;
-                    hairRadioButton.Enabled = true;
-                    decalRadioButton.Enabled = true; //Enable buttons now that files were found
+                    formatBtn.Enabled = true; //Enable buttons now that files were found
                 } else //Show a warning
                 {
                     MessageBox.Show("No overlay files were found in the directory!", "overlayFormatter", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -257,6 +240,11 @@ namespace overlayFormatter
         private void formatBtn_Click(object sender, EventArgs e)
         {
             exportBtn.Enabled = false; //Disable export button
+            overlayRadioButton.Enabled = false;
+            tattooRadioButton.Enabled = false;
+            hairRadioButton.Enabled = false;
+            decalRadioButton.Enabled = false; //Disable radio buttons
+
             overlays.Clear(); //Remove any existing overlays from the last run
 
             LogAction("Formatting overlay files...");
@@ -299,16 +287,43 @@ namespace overlayFormatter
             }
 
             exportBtn.Enabled = true; //Allow exporting
+            overlayRadioButton.Enabled = true;
+            tattooRadioButton.Enabled = true;
+            hairRadioButton.Enabled = true;
+            decalRadioButton.Enabled = true; //Enable radio buttons
         }
 
         private void exportBtn_Click(object sender, EventArgs e)
         {
-            string fileName = "overlays";
+            List<Overlay> exportOverlays = new List<Overlay>();
+            string fileName = "overlays_";
             int count = 1;
             string currentDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location); //Get application directory
             string filePath = "";
 
             LogAction("Exporting...");
+
+            exportOverlays.AddRange(overlays);
+
+            if (tattooRadioButton.Checked) //Checks if only tattoo overlays are being kept
+            {
+                exportOverlays.RemoveAll(x => !x.name.ToLower().Contains("tat")); //Removes all non-tattoo overlays
+                fileName += "tattoo";
+            }
+            else if (hairRadioButton.Checked) //Checks if only hair overlays are being kept
+            {
+                exportOverlays.RemoveAll(x => !x.name.ToLower().Contains("hair")); //Removes all non-hair overlays
+                fileName += "hair";
+            }
+            else if (decalRadioButton.Checked) //Checks if only decal overlays are being kept
+            {
+                exportOverlays.RemoveAll(x => (x.name.ToLower().Contains("hair") || x.name.ToLower().Contains("tat"))); //Removes all non-decal overlays
+                fileName += "decals";
+            } 
+            else
+            {
+                fileName += "all";
+            }
 
             if (File.Exists(currentDir + "\\" + fileName + ".json")) { //Check if exported file already exists
                 LogAction("Getting suitable filename...");
@@ -326,7 +341,7 @@ namespace overlayFormatter
 
             using (StreamWriter outputFile = File.CreateText(filePath)) //Create file
             {
-                outputFile.WriteLine(JsonConvert.SerializeObject(overlays, Formatting.Indented)); //Convert list to JSON and write to file
+                outputFile.WriteLine(JsonConvert.SerializeObject(exportOverlays, Formatting.Indented)); //Convert list to JSON and write to file
             }
 
             LogAction("Successfully exported to: " + Path.GetFileName(filePath));
