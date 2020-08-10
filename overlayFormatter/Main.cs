@@ -37,7 +37,8 @@ namespace overlayFormatter
             formatBtn.Enabled = false;
             overlayRadioButton.Enabled = false;
             tattooRadioButton.Enabled = false;
-            hairRadioButton.Enabled = false; //Disable buttons
+            hairRadioButton.Enabled = false;
+            decalRadioButton.Enabled = false; //Disable buttons
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -88,12 +89,15 @@ namespace overlayFormatter
                             }
 
 
-                            if (tattooRadioButton.Checked) //Checks if hair overlays are to be removed
+                            if (tattooRadioButton.Checked) //Checks if only tattoo overlays are being kept
                             {
-                                overlays.RemoveAll(x => x.name.ToLower().Contains("hair")); //Removes all hair overlays
-                            } else if (hairRadioButton.Checked) //Checks if tattoo overlays are to be removed
+                                overlays.RemoveAll(x => !x.name.ToLower().Contains("tat")); //Removes all non-tattoo overlays
+                            } else if (hairRadioButton.Checked) //Checks if only hair overlays are being kept
                             {
-                                overlays.RemoveAll(x => !x.name.ToLower().Contains("hair")); //Removes all tattoo overlays
+                                overlays.RemoveAll(x => !x.name.ToLower().Contains("hair")); //Removes all non-hair overlays
+                            } else if (decalRadioButton.Checked) //Checks if only decal overlays are being kept
+                            {
+                                overlays.RemoveAll(x => (x.name.ToLower().Contains("hair") || x.name.ToLower().Contains("tat"))); //Removes all non-decal overlays
                             }
 
                             LogAction(">> " + fileName + " formatted successfully");
@@ -203,7 +207,8 @@ namespace overlayFormatter
                 formatBtn.Enabled = false;
                 overlayRadioButton.Enabled = false;
                 tattooRadioButton.Enabled = false;
-                hairRadioButton.Enabled = false; //Disable buttons
+                hairRadioButton.Enabled = false;
+                decalRadioButton.Enabled = false; //Disable buttons
 
                 foreach (string fileName in files) //Loop through every file
                 {
@@ -236,10 +241,11 @@ namespace overlayFormatter
                     LogAction("Found " + shopFiles.Count + " shop file(s)");
 
                     formatBtn.Enabled = true;
-                    exportGroupBox.Enabled = true;
+                    formatGroupBox.Enabled = true;
                     overlayRadioButton.Enabled = true;
                     tattooRadioButton.Enabled = true;
-                    hairRadioButton.Enabled = true; //Enable buttons now that files were found
+                    hairRadioButton.Enabled = true;
+                    decalRadioButton.Enabled = true; //Enable buttons now that files were found
                 } else //Show a warning
                 {
                     MessageBox.Show("No overlay files were found in the directory!", "overlayFormatter", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
