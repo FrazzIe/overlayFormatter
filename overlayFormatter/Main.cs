@@ -68,24 +68,39 @@ namespace overlayFormatter
                     {
                         try
                         {
-                            overlays.AddRange(items.Elements("Item").Select(x => new Overlay(
-                                x.Element("nameHash").Value,
-                                (Zone)Enum.Parse(typeof(Zone), x.Element("zone").Value),
-                                (Type)Enum.Parse(typeof(Type), x.Element("type").Value),
-                                (Faction)Enum.Parse(typeof(Faction), x.Element("faction").Value),
-                                (Gender)Enum.Parse(typeof(Gender), x.Element("gender").Value)
-                            ))); //Selects 4 elements from every overlay and stores it in a list
+                            foreach (XElement item in items.Elements("Item"))
+                            {
+                                try
+                                {
+                                    overlays.Add(new Overlay(
+                                        item.Element("nameHash").Value,
+                                        (Zone)Enum.Parse(typeof(Zone), item.Element("zone").Value),
+                                        (Type)Enum.Parse(typeof(Type), item.Element("type").Value),
+                                        (Faction)Enum.Parse(typeof(Faction), item.Element("faction").Value),
+                                        (Gender)Enum.Parse(typeof(Gender), item.Element("gender").Value)
+                                    ));
+                                }
+                                catch (Exception e) //Catches any errors that occur in the add process and notifies the user
+                                {
+                                    LogAction(">> " + fileName + " an error occured, skipping item...");
+                                    MessageBox.Show(e.Message, "An error occured with an item", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
 
-                            if (!hairCheckBox.Checked) //Checks if hair overlays are to be removed
+
+                            if (tattooRadioButton.Checked) //Checks if hair overlays are to be removed
                             {
                                 overlays.RemoveAll(x => x.name.ToLower().Contains("hair")); //Removes all hair overlays
+                            } else if (hairRadioButton.Checked) //Checks if tattoo overlays are to be removed
+                            {
+                                overlays.RemoveAll(x => !x.name.ToLower().Contains("hair")); //Removes all tattoo overlays
                             }
 
                             LogAction(">> " + fileName + " formatted successfully");
 
                             count++; //updates the number of successfully formatted files
                         }
-                        catch (Exception e) //Catches any errors that occur in the selection process and notifies the user
+                        catch (Exception e) //Catches any errors that occur during formatting of a file
                         {
                             LogAction(">> " + fileName + " an error occured, skipping...");
                             MessageBox.Show(e.Message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -119,11 +134,24 @@ namespace overlayFormatter
                     {
                         try
                         {
-                            List<Shop> shopItems = items.Elements("Item").Select(x => new Shop(
-                                x.Element("textLabel").Value,
-                                x.Element("collection").Value,
-                                x.Element("preset").Value
-                            )).ToList(); //Selects 3 elements from every overlay and stores it in a list
+                            List<Shop> shopItems = new List<Shop>();
+
+                            foreach (XElement item in items.Elements("Item"))
+                            {
+                                try
+                                {
+                                    shopItems.Add(new Shop(
+                                        item.Element("textLabel").Value,
+                                        item.Element("collection").Value,
+                                        item.Element("preset").Value
+                                    ));
+                                }
+                                catch (Exception e) //Catches any errors that occur in the add process and notifies the user
+                                {
+                                    LogAction(">> " + fileName + " an error occured, skipping item...");
+                                    MessageBox.Show(e.Message, "An error occured with an item", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
 
                             shopItems.ForEach(x =>
                             {
