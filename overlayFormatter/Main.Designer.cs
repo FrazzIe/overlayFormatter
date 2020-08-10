@@ -34,8 +34,12 @@
             this.formatBtn = new System.Windows.Forms.Button();
             this.actionsLog = new System.Windows.Forms.TextBox();
             this.exportBtn = new System.Windows.Forms.Button();
-            this.hairCheckBox = new System.Windows.Forms.CheckBox();
             this.creditLabel = new System.Windows.Forms.LinkLabel();
+            this.tattooRadioButton = new System.Windows.Forms.RadioButton();
+            this.hairRadioButton = new System.Windows.Forms.RadioButton();
+            this.overlayRadioButton = new System.Windows.Forms.RadioButton();
+            this.exportGroupBox = new System.Windows.Forms.GroupBox();
+            this.exportGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // selectFileBtn
@@ -98,23 +102,10 @@
             this.exportBtn.UseVisualStyleBackColor = true;
             this.exportBtn.Click += new System.EventHandler(this.exportBtn_Click);
             // 
-            // hairCheckBox
-            // 
-            this.hairCheckBox.AutoSize = true;
-            this.hairCheckBox.Checked = true;
-            this.hairCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.hairCheckBox.Enabled = false;
-            this.hairCheckBox.Location = new System.Drawing.Point(15, 232);
-            this.hairCheckBox.Name = "hairCheckBox";
-            this.hairCheckBox.Size = new System.Drawing.Size(122, 17);
-            this.hairCheckBox.TabIndex = 6;
-            this.hairCheckBox.Text = "include hair overlays";
-            this.hairCheckBox.UseVisualStyleBackColor = true;
-            // 
             // creditLabel
             // 
             this.creditLabel.AutoSize = true;
-            this.creditLabel.Location = new System.Drawing.Point(216, 233);
+            this.creditLabel.Location = new System.Drawing.Point(213, 208);
             this.creditLabel.Name = "creditLabel";
             this.creditLabel.Size = new System.Drawing.Size(97, 13);
             this.creditLabel.TabIndex = 7;
@@ -122,13 +113,60 @@
             this.creditLabel.Text = "Created by Frazzle.";
             this.creditLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.creditLabel_LinkClicked);
             // 
+            // tattooRadioButton
+            // 
+            this.tattooRadioButton.AutoSize = true;
+            this.tattooRadioButton.Enabled = false;
+            this.tattooRadioButton.Location = new System.Drawing.Point(95, 18);
+            this.tattooRadioButton.Name = "tattooRadioButton";
+            this.tattooRadioButton.Size = new System.Drawing.Size(98, 17);
+            this.tattooRadioButton.TabIndex = 8;
+            this.tattooRadioButton.Text = "Tattoo overlays";
+            this.tattooRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // hairRadioButton
+            // 
+            this.hairRadioButton.AutoSize = true;
+            this.hairRadioButton.Enabled = false;
+            this.hairRadioButton.Location = new System.Drawing.Point(206, 18);
+            this.hairRadioButton.Name = "hairRadioButton";
+            this.hairRadioButton.Size = new System.Drawing.Size(86, 17);
+            this.hairRadioButton.TabIndex = 9;
+            this.hairRadioButton.Text = "Hair overlays";
+            this.hairRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // overlayRadioButton
+            // 
+            this.overlayRadioButton.AutoSize = true;
+            this.overlayRadioButton.Checked = true;
+            this.overlayRadioButton.Enabled = false;
+            this.overlayRadioButton.Location = new System.Drawing.Point(6, 18);
+            this.overlayRadioButton.Name = "overlayRadioButton";
+            this.overlayRadioButton.Size = new System.Drawing.Size(78, 17);
+            this.overlayRadioButton.TabIndex = 10;
+            this.overlayRadioButton.TabStop = true;
+            this.overlayRadioButton.Text = "All overlays";
+            this.overlayRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // exportGroupBox
+            // 
+            this.exportGroupBox.Controls.Add(this.overlayRadioButton);
+            this.exportGroupBox.Controls.Add(this.hairRadioButton);
+            this.exportGroupBox.Controls.Add(this.tattooRadioButton);
+            this.exportGroupBox.Location = new System.Drawing.Point(15, 232);
+            this.exportGroupBox.Name = "exportGroupBox";
+            this.exportGroupBox.Size = new System.Drawing.Size(298, 48);
+            this.exportGroupBox.TabIndex = 11;
+            this.exportGroupBox.TabStop = false;
+            this.exportGroupBox.Text = "Export options";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 251);
+            this.ClientSize = new System.Drawing.Size(322, 290);
+            this.Controls.Add(this.exportGroupBox);
             this.Controls.Add(this.creditLabel);
-            this.Controls.Add(this.hairCheckBox);
             this.Controls.Add(this.exportBtn);
             this.Controls.Add(this.actionsLog);
             this.Controls.Add(this.formatBtn);
@@ -139,6 +177,8 @@
             this.Name = "Main";
             this.Text = "overlayFormatter";
             this.Load += new System.EventHandler(this.Main_Load);
+            this.exportGroupBox.ResumeLayout(false);
+            this.exportGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,8 +191,11 @@
         private System.Windows.Forms.Button formatBtn;
         private System.Windows.Forms.TextBox actionsLog;
         private System.Windows.Forms.Button exportBtn;
-        private System.Windows.Forms.CheckBox hairCheckBox;
         private System.Windows.Forms.LinkLabel creditLabel;
+        private System.Windows.Forms.RadioButton tattooRadioButton;
+        private System.Windows.Forms.RadioButton hairRadioButton;
+        private System.Windows.Forms.RadioButton overlayRadioButton;
+        private System.Windows.Forms.GroupBox exportGroupBox;
     }
 }
 

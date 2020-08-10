@@ -32,6 +32,12 @@ namespace overlayFormatter
         public Main()
         {
             InitializeComponent();
+
+            exportBtn.Enabled = false;
+            formatBtn.Enabled = false;
+            overlayRadioButton.Enabled = false;
+            tattooRadioButton.Enabled = false;
+            hairRadioButton.Enabled = false; //Disable buttons
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -167,7 +173,9 @@ namespace overlayFormatter
                 overlayFiles.Clear(); //Remove any existing files from the last run
                 exportBtn.Enabled = false;
                 formatBtn.Enabled = false;
-                hairCheckBox.Enabled = false; //Disable buttons
+                overlayRadioButton.Enabled = false;
+                tattooRadioButton.Enabled = false;
+                hairRadioButton.Enabled = false; //Disable buttons
 
                 foreach (string fileName in files) //Loop through every file
                 {
@@ -200,7 +208,10 @@ namespace overlayFormatter
                     LogAction("Found " + shopFiles.Count + " shop file(s)");
 
                     formatBtn.Enabled = true;
-                    hairCheckBox.Enabled = true; //Enable buttons now that files were found
+                    exportGroupBox.Enabled = true;
+                    overlayRadioButton.Enabled = true;
+                    tattooRadioButton.Enabled = true;
+                    hairRadioButton.Enabled = true; //Enable buttons now that files were found
                 } else //Show a warning
                 {
                     MessageBox.Show("No overlay files were found in the directory!", "overlayFormatter", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
