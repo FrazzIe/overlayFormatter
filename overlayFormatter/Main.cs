@@ -84,7 +84,8 @@ namespace overlayFormatter
                                 catch (Exception e) //Catches any errors that occur in the add process and notifies the user
                                 {
                                     LogAction(">> " + fileName + " an error occured, skipping item...");
-                                    MessageBox.Show(e.Message, "An error occured with an item", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    if (!errorCheckBox.Checked)
+                                        MessageBox.Show(e.Message, "An error occured with an item", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
 
@@ -95,7 +96,8 @@ namespace overlayFormatter
                         catch (Exception e) //Catches any errors that occur during formatting of a file
                         {
                             LogAction(">> " + fileName + " an error occured, skipping...");
-                            MessageBox.Show(e.Message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (!errorCheckBox.Checked)
+                                MessageBox.Show(e.Message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
@@ -141,7 +143,8 @@ namespace overlayFormatter
                                 catch (Exception e) //Catches any errors that occur in the add process and notifies the user
                                 {
                                     LogAction(">> " + fileName + " an error occured, skipping item...");
-                                    MessageBox.Show(e.Message, "An error occured with an item", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    if (!errorCheckBox.Checked)
+                                        MessageBox.Show(e.Message, "An error occured with an item", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
 
@@ -162,7 +165,8 @@ namespace overlayFormatter
                         catch (Exception e) //Catches any errors that occur in the selection process and notifies the user
                         {
                             LogAction(">> " + fileName + " an error occured, skipping...");
-                            MessageBox.Show(e.Message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (!errorCheckBox.Checked)
+                                MessageBox.Show(e.Message, "An error occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else

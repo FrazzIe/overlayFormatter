@@ -40,6 +40,7 @@
             this.overlayRadioButton = new System.Windows.Forms.RadioButton();
             this.exportGroupBox = new System.Windows.Forms.GroupBox();
             this.decalRadioButton = new System.Windows.Forms.RadioButton();
+            this.errorCheckBox = new System.Windows.Forms.CheckBox();
             this.exportGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,7 +107,7 @@
             // creditLabel
             // 
             this.creditLabel.AutoSize = true;
-            this.creditLabel.Location = new System.Drawing.Point(15, 208);
+            this.creditLabel.Location = new System.Drawing.Point(210, 305);
             this.creditLabel.Name = "creditLabel";
             this.creditLabel.Size = new System.Drawing.Size(97, 13);
             this.creditLabel.TabIndex = 7;
@@ -174,11 +175,24 @@
             this.decalRadioButton.Text = "Decal overlays";
             this.decalRadioButton.UseVisualStyleBackColor = true;
             // 
+            // errorCheckBox
+            // 
+            this.errorCheckBox.AutoSize = true;
+            this.errorCheckBox.Checked = true;
+            this.errorCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.errorCheckBox.Location = new System.Drawing.Point(15, 207);
+            this.errorCheckBox.Name = "errorCheckBox";
+            this.errorCheckBox.Size = new System.Drawing.Size(85, 17);
+            this.errorCheckBox.TabIndex = 12;
+            this.errorCheckBox.Text = "Ignore errors";
+            this.errorCheckBox.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 310);
+            this.ClientSize = new System.Drawing.Size(322, 327);
+            this.Controls.Add(this.errorCheckBox);
             this.Controls.Add(this.exportGroupBox);
             this.Controls.Add(this.creditLabel);
             this.Controls.Add(this.actionsLog);
@@ -210,6 +224,7 @@
         private System.Windows.Forms.RadioButton overlayRadioButton;
         private System.Windows.Forms.GroupBox exportGroupBox;
         private System.Windows.Forms.RadioButton decalRadioButton;
+        private System.Windows.Forms.CheckBox errorCheckBox;
     }
 }
 
