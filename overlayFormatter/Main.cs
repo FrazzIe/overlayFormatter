@@ -307,17 +307,25 @@ namespace overlayFormatter
 
             if (tattooRadioButton.Checked) //Checks if only tattoo overlays are being kept
             {
-                exportOverlays.RemoveAll(x => !x.name.ToLower().Contains("tat")); //Removes all non-tattoo overlays
+                exportOverlays.RemoveAll(x => x.type != 0); //Removes all non-tattoo overlays
                 fileName += "tattoo";
             }
             else if (hairRadioButton.Checked) //Checks if only hair overlays are being kept
             {
-                exportOverlays.RemoveAll(x => !x.name.ToLower().Contains("hair")); //Removes all non-hair overlays
+                exportOverlays.RemoveAll(x =>
+                {
+                    if (x.type != 0)
+                        return true;
+                    if (x.name.ToLower().Contains("hair"))
+                        return false;
+
+                    return true;
+                }); //Removes all non-hair overlays
                 fileName += "hair";
             }
             else if (decalRadioButton.Checked) //Checks if only decal overlays are being kept
             {
-                exportOverlays.RemoveAll(x => (x.name.ToLower().Contains("hair") || x.name.ToLower().Contains("tat"))); //Removes all non-decal overlays
+                exportOverlays.RemoveAll(x => x.type != 1); //Removes all non-decal overlays
                 fileName += "decals";
             } 
             else
