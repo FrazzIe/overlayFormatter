@@ -155,7 +155,7 @@ namespace overlayFormatter
 
                             shopItems.ForEach(x =>
                             {
-                                int idx = overlays.FindIndex(y => y.name == x.name);
+                                int idx = overlays.FindIndex(y => y.name.ToLower() == x.name.ToLower());
 
                                 if (idx > -1) {
                                     overlays[(int)idx].label = x.label;
