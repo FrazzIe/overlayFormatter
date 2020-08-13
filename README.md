@@ -64,6 +64,7 @@
     {
         TYPE_TATTOO = 0,
         TYPE_BADGE = 1,
+        TYPE_HAIR = 2,
     }
 ```
  ## Screenshot

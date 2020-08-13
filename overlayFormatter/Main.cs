@@ -137,7 +137,8 @@ namespace overlayFormatter
                                     shopItems.Add(new Shop(
                                         item.Element("textLabel").Value,
                                         item.Element("collection").Value,
-                                        item.Element("preset").Value
+                                        item.Element("preset").Value,
+                                        item.Element("updateGroup").Value
                                     ));
                                 }
                                 catch (Exception e) //Catches any errors that occur in the add process and notifies the user
@@ -155,6 +156,11 @@ namespace overlayFormatter
                                 if (idx > -1) {
                                     overlays[(int)idx].label = x.label;
                                     overlays[(int)idx].collection = x.collection;
+
+                                    if (x.updateGroup == "hairOverlay")
+                                    {
+                                        overlays[(int)idx].type = (int)Type.TYPE_HAIR;
+                                    }
                                 }
                             }); //Loops through every overlay found and looks for a match in the main overlays list and adds the text label and collection
 
@@ -290,6 +296,13 @@ namespace overlayFormatter
                 LogAction("If you want labels and collection add shop_tattoo.meta files");
             }
 
+            overlays.ForEach(x =>
+            {
+                if (x.type == 0)
+                    if (x.name.ToLower().Contains("hair"))
+                        x.type = 2;
+            });
+
             exportBtn.Enabled = true; //Allow exporting
             overlayRadioButton.Enabled = true;
             tattooRadioButton.Enabled = true;
@@ -316,15 +329,7 @@ namespace overlayFormatter
             }
             else if (hairRadioButton.Checked) //Checks if only hair overlays are being kept
             {
-                exportOverlays.RemoveAll(x =>
-                {
-                    if (x.type != 0)
-                        return true;
-                    if (x.name.ToLower().Contains("hair"))
-                        return false;
-
-                    return true;
-                }); //Removes all non-hair overlays
+                exportOverlays.RemoveAll(x => x.type != 2); //Removes all non-hair overlays
                 fileName += "hair";
             }
             else if (decalRadioButton.Checked) //Checks if only decal overlays are being kept
